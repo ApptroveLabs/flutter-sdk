@@ -324,7 +324,7 @@ class TrackierfluttersdkPlugin : FlutterPlugin, MethodCallHandler {
             }
         }
 
-        trackierSDKConfig.setSDKVersion("1.6.73")
+        trackierSDKConfig.setSDKVersion("1.6.74")
         trackierSDKConfig.setSDKType("flutter_sdk")
         trackierSDKConfig.setAppSecret(secretId, secretKey)
         trackierSDKConfig.setManualMode(manualmode)

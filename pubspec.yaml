@@ -1,6 +1,6 @@
 name: trackier_sdk_flutter
 description: This is trackier flutter SDK
-version: 1.6.73
+version: 1.6.74
 homepage: https://github.com/trackier/flutter-sdk
 
 environment:
