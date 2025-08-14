@@ -1,18 +1,18 @@
 group 'com.example.trackierfluttersdk'
 version '1.0-SNAPSHOT'
 
-buildscript {
-    ext.kotlin_version = '1.6.0'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
-}
+//buildscript {
+//    ext.kotlin_version = '1.6.0'
+//    repositories {
+//        google()
+//        mavenCentral()
+//    }
+//
+//    dependencies {
+//        classpath 'com.android.tools.build:gradle:7.0.2'
+//        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+//    }
+//}
 
 rootProject.allprojects {
     repositories {
@@ -26,7 +26,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 35
     namespace "com.example.trackierfluttersdk"
 
     sourceSets {
@@ -34,13 +34,49 @@ android {
     }
     defaultConfig {
         minSdkVersion 16
+        consumerProguardFile 'proguard-rules.pro'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xjvm-default=all"]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    project.afterEvaluate {
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { task ->
+            task.kotlinOptions.jvmTarget = '1.8'
+            task.kotlinOptions.freeCompilerArgs = ["-Xjvm-default=all"]
+        }
+
+        tasks.withType(JavaCompile).configureEach { task ->
+            task.sourceCompatibility = '1.8'
+            task.targetCompatibility = '1.8'
+        }
     }
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7"
     implementation 'androidx.annotation:annotation:1.2.0'
-    implementation 'com.trackier:android-sdk:1.6.73'
+    implementation 'com.trackier:android-sdk:1.6.74'
     implementation 'com.android.installreferrer:installreferrer:2.2'
     implementation 'com.google.android.gms:play-services-ads-identifier:18.0.1'
+}
+
+// Minimal conflict resolution - only exclude truly problematic dependencies
+configurations.all {
+    //  exclude commons-logging which causes hard conflicts
+    exclude group: 'commons-logging', module: 'commons-logging'
 }

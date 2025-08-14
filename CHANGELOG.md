@@ -1,3 +1,3 @@
-## 1.6.73
+## 1.6.74
 
-- feat: add function for adding region
+- update: compile SDK version
