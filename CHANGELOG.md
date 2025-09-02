@@ -1,3 +1,3 @@
-## 1.6.74
+## 1.6.75
 
-- update: compile SDK version
+- update: meta-referral-sdk

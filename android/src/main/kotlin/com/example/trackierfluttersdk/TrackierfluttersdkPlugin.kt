@@ -270,6 +270,8 @@ class TrackierfluttersdkPlugin : FlutterPlugin, MethodCallHandler {
         var manualmode = false
         var disableOrganic = false
         var region = ""
+        var facebookId = ""
+        var androidId = ""
         val configMap = call.arguments as MutableMap<*, *>
 
         if (configMap.containsKey("appToken")) {
@@ -290,6 +292,14 @@ class TrackierfluttersdkPlugin : FlutterPlugin, MethodCallHandler {
 
         if (configMap.containsKey("setManualMode")) {
             manualmode = configMap.get("setManualMode") as Boolean
+        }
+
+        if (configMap.containsKey("setFacebookAppId")) {
+            facebookId = configMap.get("setFacebookAppId") as String
+        }
+
+        if (configMap.containsKey("setAndroidId")) {
+            androidId = configMap.get("setAndroidId") as String
         }
 
         if (configMap.containsKey("disableOrganicTracking")) {
@@ -324,11 +334,13 @@ class TrackierfluttersdkPlugin : FlutterPlugin, MethodCallHandler {
             }
         }
 
-        trackierSDKConfig.setSDKVersion("1.6.74")
+        trackierSDKConfig.setSDKVersion("1.6.75")
         trackierSDKConfig.setSDKType("flutter_sdk")
         trackierSDKConfig.setAppSecret(secretId, secretKey)
         trackierSDKConfig.setManualMode(manualmode)
         trackierSDKConfig.disableOrganicTracking(disableOrganic)
+        trackierSDKConfig.setAndroidId(androidId)
+        trackierSDKConfig.setFacebookAppId(facebookId)
 
         if (configMap.containsKey("deeplinkCallback")) {
             val dartMethodName = configMap["deeplinkCallback"] as String?
