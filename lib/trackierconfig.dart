@@ -9,6 +9,8 @@ class TrackerSDKConfig {
   String secretKey = "";
   bool manualMode = false;
   bool disableOrganic = false;
+  String androidId = "";
+  String facebookId = "";
   TrackierRegion region = TrackierRegion.NONE;
 
   Map<String, dynamic> attributionParams = {};
@@ -35,6 +37,14 @@ class TrackerSDKConfig {
 
   void disableOrganicTracking(bool value) {
     this.disableOrganic = value;
+  }
+
+  void setAndroidId(String value) {
+    this.androidId = value;
+  }
+
+  void setFacebookAppId(String value) {
+    this.facebookId = value;
   }
 
   void setAttributionParams(Map<String, dynamic> params) {
@@ -73,7 +83,9 @@ class TrackerSDKConfig {
       'setManualMode': manualMode,
       'disableOrganicTracking': disableOrganic,
       'attributionParams': attributionParams,
-      'region': region.name.toLowerCase(),
+      'setAndroidId' : androidId,
+      'setFacebookAppId' : facebookId,
+      'region': region.name.toLowerCase()
     };
 
     return configMap;
